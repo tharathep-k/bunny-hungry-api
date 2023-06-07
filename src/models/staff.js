@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "user",
+  const Staff = sequelize.define(
+    "staff",
     {
       firstname: {
         type: DataTypes.STRING,
@@ -14,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        validate: {
+          isEmail: true,
         },
       },
       mobile: {
@@ -37,31 +44,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  User.associate = (models) => {
-    User.hasMany(models.table, {
+  Staff.associate = (models) => {
+    Staff.hasMany(models.order, {
       foreignKey: {
-        name: "userId",
+        name: "staffId",
         allowNull: false,
       },
       onDelete: "RESTRICT",
     });
 
-    User.hasMany(models.order, {
+    Staff.hasMany(models.menu, {
       foreignKey: {
-        name: "userId",
+        name: "staffId",
         allowNull: false,
       },
       onDelete: "RESTRICT",
     });
-
-    User.hasMany(models.cart, {
-      foreignKey: {
-        name: "userId",
-        allowNull: false
-      },
-      onDelete: "RESTRICT"
-    })
   };
 
-  return User;
+  return Staff;
 };
