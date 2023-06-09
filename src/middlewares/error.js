@@ -1,3 +1,7 @@
 module.exports = (err, req, res, next) => {
-  res.status(500).json({ msg: err.message });
+  if (err.name === "ValidationError") {
+    err.statusCode = 400;
+  }
+
+  res.status(err.statusCode || 500).json({ msg: err.message });
 };
