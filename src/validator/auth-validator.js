@@ -13,4 +13,10 @@ const registerSchema = Joi.object({
   confirmpassword: Joi.string().valid(Joi.ref("password")).strip(),
 });
 
+const loginSchema = Joi.object({
+  mobile: Joi.string().trim().required(),
+  password: Joi.string().trim().required(),
+});
+
 exports.validateRegister = validate(registerSchema);
+exports.validateLogin = validate(loginSchema);
