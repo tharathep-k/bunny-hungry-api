@@ -25,8 +25,6 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const {mobile, password} =  validateLogin(req.body)
-    console.log(mobile,password)
-
     
     const User = await user.findOne({where: {mobile}});
     if (!User) {
@@ -46,4 +44,8 @@ exports.login = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+exports.getMe = (req, res, next) => {
+  res.status(200).json({ user: req.user });
 };
