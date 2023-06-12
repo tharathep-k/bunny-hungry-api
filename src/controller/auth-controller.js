@@ -4,7 +4,7 @@ const {
 } = require("../validator/auth-validator");
 const bcryptService = require("../services/bcrypt-service");
 const tokenService = require("../services/token-service");
-const { user } = require("../models");
+const { user, staff } = require("../models");
 const createError = require("../utils/create-error");
 
 exports.register = async (req, res, next) => {
@@ -14,6 +14,7 @@ exports.register = async (req, res, next) => {
     value.password = await bcryptService.hash(value.password);
 
     const User = await user.create(value);
+    // const User = await staff.create(value);
 
     const accessToken = tokenService.sign({ id: User.id });
     res.status(200).json({ accessToken });
@@ -26,8 +27,9 @@ exports.login = async (req, res, next) => {
   try {
     const {mobile, password} =  validateLogin(req.body)
     
+    const Staff = await staff.findOne({where: {mobile}})
     const User = await user.findOne({where: {mobile}});
-    if (!User) {
+    if (!User || !Staff) {
       createError("invalid credential", 400);
     }
 
@@ -35,11 +37,14 @@ exports.login = async (req, res, next) => {
       password,
       User.password,
     );
-    if (!isCorrect) {
+    const isCorrectStaff = await bcryptService.compare(
+      password, Staff.password
+    )
+    if (!isCorrect || !isCorrectStaff) {
       createError("invalid credential", 400);
     }
 
-    const accessToken = tokenService.sign({ id: User.id });
+    const accessToken = tokenService.sign({ id: User.id } || { id: Staff.id });
     res.status(200).json({ accessToken });
   } catch (err) {
     next(err);
@@ -47,5 +52,5 @@ exports.login = async (req, res, next) => {
 };
 
 exports.getMe = (req, res, next) => {
-  res.status(200).json({ user: req.user });
+  res.status(200).json({ user: req.User });
 };

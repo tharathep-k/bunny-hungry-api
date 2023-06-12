@@ -1,5 +1,7 @@
 module.exports = (err, req, res, next) => {
-  if (err.name === "ValidationError") {
+  console.log(err)
+  if (err.name === "ValidationError")  {
+    
     err.statusCode = 400;
   }
 

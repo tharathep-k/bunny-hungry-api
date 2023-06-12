@@ -16,13 +16,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      email: {
-        type: DataTypes.STRING,
-        unique: true,
-        validate: {
-          isEmail: true,
-        },
-      },
       mobile: {
         type: DataTypes.STRING,
         allowNull: false,
