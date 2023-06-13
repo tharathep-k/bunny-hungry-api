@@ -1,6 +1,6 @@
 const createError = require("../utils/create-error");
 const tokenService = require("../services/token-service");
-const { user } = require("../models");
+const { staff } = require("../models");
 
 module.exports = async (req, res, next) => {
   try {
@@ -15,14 +15,15 @@ module.exports = async (req, res, next) => {
     }
 
     const payload = tokenService.verify(token);
+    // console.log(payload)
 
-    const User = await user.findByPk(payload.id);
-
-    if (!User) {
+    const Staff = await staff.findByPk(payload.id);
+    
+    if (!Staff) {
       createError("Unauthorized3", 401);
     }
 
-    req.User = User;
+    req.Staff = Staff;
     next();
   } catch (err) {
     next(err);

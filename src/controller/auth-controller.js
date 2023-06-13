@@ -31,6 +31,7 @@ exports.login = async (req, res, next) => {
     const Staff = await staff.findOne({ where: { mobile } });
     console.log(Staff);
     const User = await user.findOne({ where: { mobile } });
+    console.log(User);
     if (!User && !Staff) {
       createError("invalid credential1", 400);
     }
@@ -41,7 +42,7 @@ exports.login = async (req, res, next) => {
         createError("invalid credential2", 400);
       }
       const accessToken = tokenService.sign({ id: User.id });
-      res.status(200).json({ accessToken });
+      res.status(200).json({ accessToken , role : "user"});
     }
 
     if (Staff) {
@@ -50,7 +51,7 @@ exports.login = async (req, res, next) => {
         createError("invalid credential2", 400);
       }
       const accessToken = tokenService.sign({ id: Staff.id });
-      res.status(200).json({ accessToken });
+      res.status(200).json({ accessToken , role : "staff"});
     }
 
     // const isCorrectStaff = await bcryptService.compare(
@@ -70,4 +71,8 @@ exports.login = async (req, res, next) => {
 
 exports.getMe = (req, res, next) => {
   res.status(200).json({ user: req.User });
+};
+
+exports.getMeStaff = (req, res, next) => {
+  res.status(200).json({ staff: req.Staff });
 };
