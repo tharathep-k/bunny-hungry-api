@@ -3,7 +3,10 @@ const { menu } = require("../models");
 exports.createMenu = async (req, res, next) => {
   // console.log(req.body);
   try {
-    const Menu = await menu.create(req.body);
+    const value = req.body
+    value.staffId = req.Staff.id 
+    
+    const Menu = await menu.create(value);
     console.log(Menu);
     res.status(200).json("Create menu success");
   } catch (error) {
@@ -32,3 +35,12 @@ exports.deleteMenu = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getMenu = async (req, res ,next) => {
+  try {
+    await menu.findAll({order: [["created_at", "DESC"]]})
+    res.status(200).json("Get menu success")
+  } catch (error) {
+    next(error)
+  }
+}
