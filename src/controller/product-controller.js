@@ -21,10 +21,9 @@ const uploadService = require("../services/upload-service");
 exports.createMenu = async (req, res, next) => {
   try {
     // image => req.file, message => req.body
-    if (!req.file && (!req.body.message || !req.body.message.trim())) {
+    if (!req.body.name || !req.body.price || !req.body.type) {
       createError("Message or image is required", 400);
     }
-
     const value = req.body
     
     console.log(value)
@@ -32,15 +31,16 @@ exports.createMenu = async (req, res, next) => {
 
     // const Menu = await menu.create(value);
 
-    if (req.body.message && req.body.message.trim()) {
-      value.message = req.body.message.trim();
-    }
+    // if (req.body.message && req.body.message.trim()) {
+    //   value.message = req.body.message.trim();
+    // }
 
     if (req.file) {
       const result = await uploadService.upload(req.file.path);
-      value.image = result.secure_url;
+      value.menuImage = result.secure_url;
     }
 
+    console.log(value)
     const menuPost = await menu.create(value);
     res.status(201).json({ menuPost });
   } catch (err) {
