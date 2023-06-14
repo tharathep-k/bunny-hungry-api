@@ -10,6 +10,6 @@ const router = express.Router();
 router.put("/:menuid", productController.updateMenu)
 router.delete("/:menuid", productController.deleteMenu)
 router.get("/menus", productController.getMenu)
-router.post("/", authenticatedStaff, upload.single("image") ,productController.createMenu)
+router.post("/", authenticatedStaff, upload.single("menuImage") ,productController.createMenu)
 
 module.exports = router;
