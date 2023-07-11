@@ -14,9 +14,33 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "RESTRICT",
     });
 
-    Cart.belongsTo(models.menu, {
+    Cart.belongsTo(models.user, {
       foreignKey: {
-        name: "menuId",
+        name: "userId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
+
+    Cart.belongsTo(models.cart, {
+      foreignKey: {
+        name: "addeggId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
+
+    Cart.belongsTo(models.addSpicy, {
+      foreignKey: {
+        name: "addspicyId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
+
+    Cart.belongsTo(models.extra, {
+      foreignKey: {
+        name: "extraId",
         allowNull: false,
       },
       onDelete: "RESTRICT",

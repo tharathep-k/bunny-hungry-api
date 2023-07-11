@@ -20,9 +20,17 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   AddEgg.associate = (models) => {
-    AddEgg.belongsTo(models.menu, {
+    AddEgg.hasOne(models.orderItem, {
       foreignKey: {
-        name: "menuId",
+        name: "addeggId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
+
+    AddEgg.hasOne(models.cart, {
+      foreignKey: {
+        name: "addeggId",
         allowNull: false,
       },
       onDelete: "RESTRICT",

@@ -42,6 +42,30 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: "RESTRICT",
     });
+
+    OrderItem.belongsTo(models.extra, {
+      foreignKey: {
+        name: "extraId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
+
+    OrderItem.belongsTo(models.addSpicy, {
+      foreignKey: {
+        name: "addspicyId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
+
+    OrderItem.belongsTo(models.addEgg, {
+      foreignKey: {
+        name: "addeggId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
   };
 
   return OrderItem;

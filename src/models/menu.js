@@ -39,41 +39,17 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "RESTRICT",
     });
 
-    Menu.belongsTo(models.staff, {
-      foreignKey: {
-        name: "staffId",
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-    });
-
-    Menu.hasMany(models.addEgg, {
-      foreignKey: {
-        name: "menuId",
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-    });
-
-    Menu.hasOne(models.addSpicy, {
-      foreignKey: {
-        name: "menuId",
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-    });
-
-    Menu.hasOne(models.extra, {
-      foreignKey: {
-        name: "menuId",
-        allowNull: false,
-      },
-      onDelete: false,
-    });
-
     Menu.hasMany(models.cart, {
       foreignKey: {
         name: "menuId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+    });
+
+    Menu.belongsTo(models.staff, {
+      foreignKey: {
+        name: "staffId",
         allowNull: false,
       },
       onDelete: "RESTRICT",

@@ -20,12 +20,20 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Extra.associate = (models) => {
-    Extra.belongsTo(models.menu, {
+    Extra.hasOne(models.orderItem, {
       foreignKey: {
-        name: "menuId",
+        name: "extraId",
         allowNull: false,
       },
-      onDelete: false,
+      onDelete: "RESTRICT",
+    });
+
+    Extra.hasOne(models.cart, {
+      foreignKey: {
+        name: "extraId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
     });
   };
 
