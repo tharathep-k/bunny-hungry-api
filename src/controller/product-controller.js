@@ -1,8 +1,7 @@
-const { menu } = require("../models");
+const { menu, addEgg, addSpicy, extra } = require("../models");
 const fs = require("fs");
 
 const uploadService = require("../services/upload-service");
-
 
 // exports.createMenu = async (req, res, next) => {
 //   console.log(req.body);
@@ -24,10 +23,10 @@ exports.createMenu = async (req, res, next) => {
     if (!req.body.name || !req.body.price || !req.body.type) {
       createError("Message or image is required", 400);
     }
-    const value = req.body
-    
-    console.log(value)
-    value.staffId = req.Staff.id
+    const value = req.body;
+
+    console.log(value);
+    value.staffId = req.Staff.id;
 
     // const Menu = await menu.create(value);
 
@@ -40,7 +39,7 @@ exports.createMenu = async (req, res, next) => {
       value.menuImage = result.secure_url;
     }
 
-    console.log(value)
+    console.log(value);
     const menuPost = await menu.create(value);
     res.status(201).json({ menuPost });
   } catch (err) {
@@ -76,7 +75,12 @@ exports.deleteMenu = async (req, res, next) => {
 
 exports.getMenu = async (req, res, next) => {
   try {
-    const getMenu = await menu.findAll({ order: [["created_at", "DESC"]] });
+    const getMenu = await menu.findAll({
+      // include: { model: addEgg },
+      // include: { model: addSpicy },
+      // include: { model: extra },
+      order: [["created_at", "DESC"]],
+    });
     res.status(200).json(getMenu);
   } catch (error) {
     next(error);

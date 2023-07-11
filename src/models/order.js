@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: {
         name: "staffId",
         allowNull: false,
+        defaultValue: 1,
       },
       onDelete: "RESTRICT",
     });
