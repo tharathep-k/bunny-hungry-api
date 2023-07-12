@@ -7,9 +7,10 @@ const upload = require("../middlewares/upload")
 const router = express.Router();
 
 // router.post("/", authenticatedStaff, productController.createMenu)
+router.post("/", authenticatedStaff, upload.single("menuImage") ,productController.createMenu)
+router.get("/menus", productController.getMenu)
+router.get("/getalladd", productController.getalladd)
 router.put("/:menuid", productController.updateMenu)
 router.delete("/:menuid", productController.deleteMenu)
-router.get("/menus", productController.getMenu)
-router.post("/", authenticatedStaff, upload.single("menuImage") ,productController.createMenu)
 
 module.exports = router;

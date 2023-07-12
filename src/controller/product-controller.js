@@ -76,12 +76,29 @@ exports.deleteMenu = async (req, res, next) => {
 exports.getMenu = async (req, res, next) => {
   try {
     const getMenu = await menu.findAll({
-      // include: { model: addEgg },
-      // include: { model: addSpicy },
-      // include: { model: extra },
       order: [["created_at", "DESC"]],
     });
     res.status(200).json(getMenu);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getalladd = async (req, res, next) => {
+  try {
+    const getEgg = await addEgg.findAll()
+    const getSpicy = await addSpicy.findAll()
+    const getExtra = await extra.findAll()
+
+    const getAllAdd = {
+      eggs: getEgg,
+      spicy: getSpicy,
+      extra: getExtra
+    };
+
+    // const getAllAdd = getEgg.concat(getSpicy, getExtra);
+
+    res.status(200).json(getAllAdd)
   } catch (error) {
     next(error);
   }
