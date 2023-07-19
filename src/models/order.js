@@ -1,7 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   const Order = sequelize.define("order", {
-    date: {
-      type: DataTypes.DATE,
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: "pending",
     },
   });
 
@@ -26,15 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: {
         name: "orderId",
         allowNull: false,
-      },
-      onDelete: "RESTRICT",
-    });
-
-    Order.belongsTo(models.staff, {
-      foreignKey: {
-        name: "staffId",
-        allowNull: false,
-        defaultValue: 1,
       },
       onDelete: "RESTRICT",
     });

@@ -33,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       role: {
         type: DataTypes.STRING,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {
       underscored: true,
@@ -42,14 +42,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Staff.associate = (models) => {
-    Staff.hasMany(models.order, {
-      foreignKey: {
-        name: "staffId",
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-    });
-
     Staff.hasMany(models.menu, {
       foreignKey: {
         name: "staffId",

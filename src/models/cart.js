@@ -1,9 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-  const Cart = sequelize.define("cart", {
-    quantity: {
-      type: DataTypes.INTEGER,
+  const Cart = sequelize.define(
+    "cart",
+    {
+      quantity: {
+        type: DataTypes.INTEGER,
+      },
+      sumPrice: {
+        type: DataTypes.INTEGER,
+      },
     },
-  });
+    {
+      underscored: true,
+    }
+  );
 
   Cart.associate = (models) => {
     Cart.belongsTo(models.menu, {
@@ -22,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "RESTRICT",
     });
 
-    Cart.belongsTo(models.cart, {
+    Cart.belongsTo(models.addEgg, {
       foreignKey: {
         name: "addeggId",
         allowNull: false,

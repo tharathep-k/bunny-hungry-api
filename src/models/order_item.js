@@ -2,10 +2,6 @@ module.exports = (sequelize, DataTypes) => {
   const OrderItem = sequelize.define(
     "orderItem",
     {
-      date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
       price: {
         type: DataTypes.DECIMAL(5, 2),
         allowNull: false,

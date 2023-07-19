@@ -1,4 +1,4 @@
-const { menu, addEgg, addSpicy, extra } = require("../models");
+const { menu, addEgg, addSpicy, extra, cart } = require("../models");
 const fs = require("fs");
 
 const uploadService = require("../services/upload-service");
@@ -86,19 +86,19 @@ exports.getMenu = async (req, res, next) => {
 
 exports.getalladd = async (req, res, next) => {
   try {
-    const getEgg = await addEgg.findAll()
-    const getSpicy = await addSpicy.findAll()
-    const getExtra = await extra.findAll()
+    const getEgg = await addEgg.findAll();
+    const getSpicy = await addSpicy.findAll();
+    const getExtra = await extra.findAll();
 
     const getAllAdd = {
       eggs: getEgg,
       spicy: getSpicy,
-      extra: getExtra
+      extra: getExtra,
     };
 
     // const getAllAdd = getEgg.concat(getSpicy, getExtra);
 
-    res.status(200).json(getAllAdd)
+    res.status(200).json(getAllAdd);
   } catch (error) {
     next(error);
   }
