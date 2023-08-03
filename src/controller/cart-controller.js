@@ -69,11 +69,4 @@ exports.deleteCart = async (req, res, next) => {
   }
 };
 
-exports.getInfoOrder = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    console.log("------", id);
-  } catch (error) {
-    next(error);
-  }
-};
+

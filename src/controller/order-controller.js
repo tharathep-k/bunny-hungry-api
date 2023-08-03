@@ -78,3 +78,31 @@ exports.updateStatusOrder = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getInfoOrder = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log("------", id);
+
+    const [data] = await order.findAll({
+      where: { id: id },
+      include: [
+        {
+          model: orderItem,
+          include: [
+            { model: menu },
+            { model: addEgg },
+            { model: addSpicy },
+            { model: extra },
+          ],
+        },
+      ],
+    });
+
+    console.log("-+- :", data);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
